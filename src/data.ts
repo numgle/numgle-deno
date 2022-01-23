@@ -1,4 +1,4 @@
-const raw = await Deno.readTextFile("../dataset/src/data.json");
+const raw = await Deno.readTextFile("./dataset/src/data.json");
 type Data = {
   cho: string[],
   jong: string[],
