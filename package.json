@@ -1,0 +1,8 @@
+{
+  "name": "numgle-deno",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "deno test --allow-read",
+    "start": "deno run --allow-read --allow-net src/index.ts"
+  }
+}
