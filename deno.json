@@ -1,10 +1,4 @@
 {
-  "compilerOptions": {
-    "strict": true,
-    "lib": [
-      "deno.window"
-    ]
-  },
   "lint": {
     "files": {
       "include": [
