@@ -12,13 +12,14 @@ enum Token {
 }
 type SeperatedHan = [number, number, number];
 function getToken(letter: string, code: number): Token {
+  const range = data.range;
   if (/\s/.test(letter)) return Token.Empty;
-  else if (code >= 44032 && code <= 55203) return Token.CompleteHangul;
-  else if (code >= 12593 && code <= 12643) return Token.NotCompleteHangul;
-  else if (code >= 65 && code <= 90) return Token.EnglishUpper;
-  else if (code >= 97 && code <= 122) return Token.EnglishLower;
-  else if (code >= 48 && code <= 57) return Token.Number;
-  else if (/[?!.^-]/.test(letter)) return Token.SpecialLetter;
+  else if (code >= range.completeHangul.start && code <= range.completeHangul.end) return Token.CompleteHangul;
+  else if (code >= range.notCompleteHangul.start && code <= range.notCompleteHangul.end) return Token.NotCompleteHangul;
+  else if (code >= range.uppercase.start && code <= range.uppercase.end) return Token.EnglishUpper;
+  else if (code >= range.lowercase.start && code <= range.lowercase.end) return Token.EnglishLower;
+  else if (code >= range.number.start && code <= range.number.end) return Token.Number;
+  else if (range.special.includes(code)) return Token.SpecialLetter;
   else return Token.Unknown;
 }
 function isInData(cho: number, jung: number, jong: number): boolean {
@@ -48,19 +49,23 @@ export function convert(input: string) {
         return data.jong[jong]! + data.cj[Math.min(8, jung)][cho];
       }
       case Token.NotCompleteHangul: {
-        return data.han[letterCode - 12593];
+        const start = data.range.notCompleteHangul.start;
+        return data.han[letterCode - start];
       }
       case Token.EnglishUpper: {
-        return data.englishUpper[letterCode - 65];
+        const start = data.range.uppercase.start;
+        return data.englishUpper[letterCode - start];
       }
       case Token.EnglishLower: {
-        return data.englishLower[letterCode - 97];
+        const start = data.range.lowercase.start;
+        return data.englishLower[letterCode - start];
       }
       case Token.Number: {
-        return data.number[letterCode - 48];
+        const start = data.range.number.start;
+        return data.number[letterCode - start];
       }
       case Token.SpecialLetter: {
-        return data.special["?!.^-".indexOf(letter)];
+        return data.special[data.range.special.indexOf(letterCode)];
       }
     }
     return "";
