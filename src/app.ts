@@ -1,3 +1,4 @@
+import { convert } from "./converter.ts";
 import { HttpError } from "./errors.ts";
 
 // deno-lint-ignore require-await
@@ -9,5 +10,5 @@ export const handle = async (request: Request) => {
     throw new HttpError(400, "Bad Request");
   }
   const input = decodeURI(matched[1]);
-  return input;
+  return convert(input);
 };

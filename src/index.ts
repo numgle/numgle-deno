@@ -1,7 +1,7 @@
 import { handle } from "./app.ts";
 import { HttpError } from "./errors.ts";
 
-const server = Deno.listen({ port: 8080 });
+const server = Deno.listen({ port: 3000 });
 
 for await (const conn of server) {
   (async () => {
