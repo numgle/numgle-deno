@@ -1,7 +1,16 @@
 import { handle } from "./app.ts";
+import { updateData } from "./data.ts";
 import { HttpError } from "./errors.ts";
 
-const server = Deno.listen({ port: 3000 });
+const PORT = 3000;
+const UPDATE_INTERVAL = 3600;
+
+updateData();
+setInterval(() => {
+  updateData();
+}, UPDATE_INTERVAL * 1000);
+
+const server = Deno.listen({ port: PORT });
 
 for await (const conn of server) {
   (async () => {
