@@ -15,7 +15,10 @@ for await (const conn of server) {
       } catch (error) {
         if (error instanceof HttpError) {
           requestEvent.respondWith(
-            new Response(error.message, { status: error.status }),
+            new Response(error.message, {
+              status: error.status,
+              headers: error.headers,
+            }),
           );
         }
         console.error(error);
