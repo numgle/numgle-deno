@@ -18,6 +18,7 @@ for await (const conn of server) {
             new Response(error.message, { status: error.status }),
           );
         }
+        console.error(error);
       }
     }
   })();
