@@ -1,8 +1,16 @@
 export class HttpError extends Error {
   public readonly status: number;
-  constructor(status: number, message: string) {
+  public readonly headers: HeadersInit | undefined;
+  constructor(status: number, message: string, headers?: HeadersInit) {
     super(message);
     this.name = this.constructor.name;
     this.status = status;
+    this.headers = headers;
+  }
+}
+export class ValidationError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = this.constructor.name;
   }
 }
