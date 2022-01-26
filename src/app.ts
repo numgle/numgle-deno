@@ -11,7 +11,7 @@ type Route = {
 };
 const routes: Route[] = [
   {
-    pattern: /^\/dataset[/]?$/,
+    pattern: /^\/admin\/dataset?$/,
     handlers: {
       "POST": async () => {
         await updateData();
@@ -20,7 +20,7 @@ const routes: Route[] = [
     },
   },
   {
-    pattern: /^\/api\/([^/]+?)$/,
+    pattern: /^\/([^/]+?)$/,
     handlers: {
       "GET": (_request, [input]) => {
         const data = getData();
@@ -52,5 +52,5 @@ export const handle = async (request: Request) => {
     }
     return handler(request, matched.slice(1).map(decodeURI));
   }
-  throw new HttpError(400, "주소창에 `/api/:넘어질글자`를 입력해주세요!");
+  throw new HttpError(400, "주소창에 `/:넘어질글자`를 입력해주세요!");
 };
